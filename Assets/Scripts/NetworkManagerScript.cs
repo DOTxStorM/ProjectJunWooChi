@@ -13,6 +13,12 @@ public class NetworkManagerScript : MonoBehaviour {
 
 	private HostData[] hostList;
 
+	private gameManager currGameManagerScript;
+
+	public GameObject playerPrefab;
+	//public GameObject centerPilePrefab;
+
+
 	// Use this for initialization
 	void Start () {
 		btnX = Screen.width * 0.05f;
@@ -24,6 +30,15 @@ public class NetworkManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void SetGameManager(gameManager currGM){
+		currGameManagerScript = currGM;
+	}
+
+	void SpawnPlayer(int sign){
+		GameObject player = Network.Instantiate(playerPrefab, new Vector2(0, 5 * sign), Quaternion.identity, 0) as GameObject;
+		currGameManagerScript.SetPlayer(player);
 	}
 
 	void StartServer(){
@@ -41,10 +56,15 @@ public class NetworkManagerScript : MonoBehaviour {
 
 	void OnServerInitialized(){
 		Debug.Log("Server Initialized");
+		SpawnPlayer(-1);
+		Debug.Log("Player spawned");
+		//Network.Instantiate(centerPilePrefab, Vector2.zero, Quaternion.identity, 0);
 	}
 
 	void OnConnectedToServer(){
 		Debug.Log("Joined Server");
+		SpawnPlayer(1);
+		Debug.Log("Player spawned");
 	}
 
 	void OnMasterServerEvent(MasterServerEvent mse){

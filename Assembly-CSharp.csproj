@@ -51,7 +51,8 @@
      <Compile Include="Assets\Scripts\deck.cs" />
      <Compile Include="Assets\Scripts\energyCards.cs" />
      <Compile Include="Assets\Scripts\gameManager.cs" />
-     <Compile Include="Assets\Scripts\player.cs" />
+     <Compile Include="Assets\Scripts\phaseManager.cs" />
+     <Compile Include="Assets\Scripts\playerScript.cs" />
      <Compile Include="Assets\Scripts\thePile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

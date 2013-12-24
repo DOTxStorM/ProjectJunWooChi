@@ -5,18 +5,21 @@ public class thePile : deck {
 
 	private int pileSize = 100;
 
+	private GameObject player1;
+	private GameObject player2;
+	private GameObject currPlayer;//this is who gets the cards
+
 	public GameObject redCard;
 	public GameObject blueCard;
 	public GameObject purpleCard;
 	public GameObject greenCard;
 
 	public Stack<GameObject> pile = new Stack<GameObject>();
-
-
-
+	public int size;
 	// Use this for initialization
 	void Start () {
 		InitializeDeck();
+		size = pileSize;
 	}
 
 	void InitializeDeck(){		
@@ -41,14 +44,28 @@ public class thePile : deck {
 		}
 	}
 
+	public void SetupPlayers(GameObject inPlayer1, GameObject inPlayer2){
+		player1 = inPlayer1;
+		player2 = inPlayer2;
+	}
 
+	public void SetActivePlayer(GameObject player){
+		currPlayer = player;
+	}
 
 	// Update is called once per frame
 	void Update () {
+		size = pile.Count;
+	}
 
+	[RPC]
+	void Draw(){
+		Debug.Log (currPlayer + " gets cards.");
+		Debug.Log(pile.Pop().ToString());
+		Debug.Log("Pile size: " + pile.Count);
 	}
 
 	void OnMouseDown(){
-		Debug.Log ("Draw Cards");
+		networkView.RPC("Draw",RPCMode.All);
 	}
 }
